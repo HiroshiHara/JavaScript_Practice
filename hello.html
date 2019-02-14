@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript本格入門</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    // window.alert()...
+    // 引数の文字列をダイアログ表示する
+    window.alert('Hello, World!');
+
+    // varとletの違い
+    // varで宣言した変数は同名の変数名で上書きされる
+    var msg = "foo";
+    var msg = "bar";
+    console.log(msg); // bar
+    // letで宣言した変数は一つしか定義できない
+    let str = "foo";
+    // let str = "bar"; エラー
+    console.log(str);
+
+    // JavaScriptの変数命名規則
+    // 一文字目にはアンダースコアか$が使える
+    let _underScore = "_";
+    let doller = "$";
+    console.log(_underScore);
+    console.log(doller);
+
+    // 一般的な使い分け
+    // 変数・関数名 → キャメルケース
+    let valueOfSomething = "value";
+    console.log(valueOfSomething);
+    // 定数名 → アンダースコア記法
+    const VALUE_OF_CONST = "const";
+    console.log(VALUE_OF_CONST);
+    // クラス名 → パスカル記法
+    var SomeClass = function() {};
+
+    // JavaScriptのデータ型
+
+    // 基本型
+    // 数値型(number)
+    let number = 1234;
+    console.log(number);
+    // 文字列型(string)
+    let string = "文字列";
+    console.log(string);
+    // 真偽型(boolean)
+    let boolean = true;
+    console.log(boolean);
+    // シンボル型(symbol)
+    let symbol = Symbol("シンボル");
+    console.log(symbol.toString());
+    // 特殊型(null/undefined)
+    let nullValue = null;
+    console.log(nullValue);
+    let undefinedValue = undefined;
+    console.log(undefinedValue);
+
+    // 参照型
+    // 配列(array)
+    let array = ["apple", "banana", "orange"];
+    console.log(array.toString());
+    // オブジェクト(object)
+    let date = new Date();
+    console.log(date.toString());
+    // 関数(function)
+    function addition(x, y) {
+      return x + y;
+    }
+    console.log(addition(3, 5));
+
+    // テンプレート文字列
+    // バッククォート(``)で文字列を囲むことでエスケープ処理が不要
+    // ${変数名}で文字列中に変数を埋め込める。
+    let name = "MrBob";
+    let sentence1 = `Hello, ${name}.`;
+    let sentence2 = `${name} is the begginer for JavaScript.
+    He MUST practice HARD!!`;
+    console.log(sentence1);
+    console.log(sentence2);
+
+    // 配列の宣言
+    // []で囲む, インデックスは0始まり
+    var fruits = ['apple', 'banana', 'orange'];
+    console.log(fruits[1]); // banana
+
+    // オブジェクトリテラル(連想配列, ハッシュ)
+    // {キー値:プロパティ, キー値:プロパティ, ...}
+    // キー値は文字列のみ可, アクセス方法はハッシュ名.キー値
+    var citys = {tokyo:'tokyo', aichi:'nagoya', hokkaido:'sappolo'};
+    console.log(citys.hokkaido);
+
+    // undefined
+    // 初期化していない変数または未定義のハッシュのプロパティを参照した場合の値
+    var x;
+    console.log(x); // undefined
+    console.log(citys.kyoto); // undefined
+
+    // null
+    // null値の中身を表示しようとしたとき...undefinedが返る
+    function nullPrinter() {
+      console.log('nullValue');
+    }
+    var nullRetVal = nullPrinter();
+    console.log(nullRetVal); // 戻り値が無いのでundefinedと表示
+    // JavaScriptにNullPointerExceptionは存在しない
+    // console.log(null.toString()); Cannot read property 'toString' of null
+
+
+  </script>
+  <a href="JavaScript:window.alert('Hello, World!')">Hello, World!</a>
+  <noscript>
+    <!-- JavaScriptが表示できない場合出力するメッセージ -->
+    Javascriptが使用できません
+  </noscript>
+</body>
+
+</html>
