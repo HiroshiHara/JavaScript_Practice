@@ -87,12 +87,36 @@
     // []で囲む, インデックスは0始まり
     var fruits = ['apple', 'banana', 'orange'];
     console.log(fruits[1]); // banana
+    // 分割代入
+    // 配列の各要素を1行で各変数に代入する
+    let states = ['NewYork', 'Chicago', 'Detroit', 'Washington'];
+    let [s0, s1, s2, s3] = states;
+    console.log(s0);
+    console.log(s1);
+    console.log(s2);
+    console.log(s3);
 
     // オブジェクトリテラル(連想配列, ハッシュ)
     // {キー値:プロパティ, キー値:プロパティ, ...}
     // キー値は文字列のみ可, アクセス方法はハッシュ名.キー値
     var citys = {tokyo:'tokyo', aichi:'nagoya', hokkaido:'sappolo'};
     console.log(citys.hokkaido);
+    // 分割代入
+    // 配列と異なり順不同、また「変数名=デフォルト値」の形式でデフォルト値を設定することができる
+    let book = {title:'Javaリファレンス', price:2680, publish:'技術評論社'};
+    let {price, title, memo = 'なし'} = book;
+    console.log(title); // Javaリファレンス
+    console.log(price); // 2680
+    console.log(memo); // なし
+    // ネストしたオブジェクトは、代入先の変数もネストさせる
+    let book2 = {title:'HTMLリファレンス', price:1800, publish:'技術評論社',
+      other:{keywd:'HTML', memo:'なし'}
+    };
+    let {title2, price2, other:{keywd}} = book2;
+    console.log(keywd); // HTML
+    // 「変数名:別名」の形式でプロパティとは異なる名前の変数に値を割り当てることができる
+    let {title:bookName, publish:category} = book2;
+    console.log(bookName); // HTMLリファレンス
 
     // undefined
     // 初期化していない変数または未定義のハッシュのプロパティを参照した場合の値
@@ -110,7 +134,23 @@
     // JavaScriptにNullPointerExceptionは存在しない
     // console.log(null.toString()); Cannot read property 'toString' of null
 
+    // JavaScriptにおける小数の計算
+    // JavaScriptでは数値を内部的には2進数で計算しているため、
+    // 下記のような結果になる場合がある
+    console.log(0.2 * 3 === 6); //false
+    // 厳密な計算結果を得たい場合、下記の手順を用いる
+    // 1. 値を一旦整数にする(有効桁数分10を掛ける)
+    // 2. 1の結果を再び小数に戻す
+    console.log((0.2 * 10) * 3 / 10);
+    console.log((0.2 * 10) * 3 === 0.6 * 10); // true
 
+    // 等価演算子(==)と同値演算子(===)
+    //(==)ではオペランドのデータ型が異なる場合、型変換を自動で行い比較する
+    console.log(1 == '1'); // true
+    // (===)では型変換は行われないため、厳密な等価比較が可能
+    console.log(1 === '1'); // false
+
+    
   </script>
   <a href="JavaScript:window.alert('Hello, World!')">Hello, World!</a>
   <noscript>

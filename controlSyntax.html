@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript本格入門</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      // for...in
+      // 連想配列の中身を順に処理する
+      var fruits = {'apple':'りんご','banana':'バナナ', 'orange':'オレンジ'};
+      for (fruit in fruits) {
+        document.write(fruit);
+        document.write('<br/>');
+        console.log(fruit);
+      }
+      document.write('<br/>');
+
+      // try-catch-finally
+      function divide(x, y) {
+        if (isNaN(x) || isNaN(y)) {
+          throw new Error('NaNが渡されました');
+        }
+        if (y === 0) {
+          throw new Error('ゼロ除算が発生しました');
+        }
+        return x * y;
+      }
+
+      // 主なXxxxxErrorオブジェクト
+      // EvalError... 不正なEval関数
+      // RangeError... 指定された値が許容範囲を超えている
+      // ReferenceError... 宣言されていない変数にアクセスした
+      // SyntaxError... 文法エラー
+      // TypeError... 指定された値が期待されたデータ型ではない
+      // URIError... 不正なURI
+
+      try {
+        var result = divide ('Hello', name);
+        console.log(result);
+      } catch(e) {
+        console.log(e);
+      } finally {
+        console.log('処理は完了しました');
+      }
+
+
+    </script>
+  </body>
+</html>
