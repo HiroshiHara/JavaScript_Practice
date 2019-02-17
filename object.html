@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript本格入門</title>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var str = 'Hello';
+      console.log(str.indexOf('e')); // 1
+      console.log(str.startsWith('o')); // false
+      console.log(str.includes('l')); // true
+      console.log(str.charAt(3)); // l
+      console.log(str.substring(1, 5)); // ello
+      var str1 = 'H,e,l,l,o';
+      var strArray = str1.split(',');
+      console.log(strArray);
+      for (var i = 0; i < strArray.length; i++) {
+        console.log(strArray[i]);
+      }
+      console.log(str.toUpperCase());
+
+      // parseInt, parseFloat
+      var num = 10;
+      var str2 = '10';
+      console.log(Number.parseInt(str2));
+      console.log(Number.parseInt(str2) == 10);
+      console.log(Number.parseFloat(str2)); // 10
+      console.log(Number.parseFloat(str2) == 10.0); // true
+
+      // シンボル… enumの使い方に近い？
+      const MONDAY = Symbol();
+      const TUESDAY = Symbol();
+      const WEDNESDAY = Symbol();
+      const THURSDAY = Symbol();
+      const FRIDAY = Symbol();
+      const SATURDAY = Symbol();
+      const SUNDAY = Symbol();
+
+      switch (SUNDAY) {
+        case MONDAY:
+          console.log('月曜日');
+          break;
+        case FRIDAY:
+          console.log('金曜日');
+          break;
+        case SUNDAY:
+          console.log('日曜日');
+          break;
+        default:
+          console.log('default');
+      }
+
+      // with命令(遅いので非推奨)
+      // 同じオブジェクトを繰り返し呼び出すう場合の略記法
+      with(console) {
+        log(Math.abs(-100));
+        log(Math.max(10, 20, 30));
+        log(parseInt(Math.random() * 10));
+      }
+    </script>
+  </body>
+</html>
