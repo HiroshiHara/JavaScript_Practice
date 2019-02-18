@@ -1,63 +1,198 @@
 <!DOCTYPE html>
 <html lang="ja" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>JavaScript本格入門</title>
-  </head>
-  <body>
-    <script type="text/javascript">
-      var str = 'Hello';
-      console.log(str.indexOf('e')); // 1
-      console.log(str.startsWith('o')); // false
-      console.log(str.includes('l')); // true
-      console.log(str.charAt(3)); // l
-      console.log(str.substring(1, 5)); // ello
-      var str1 = 'H,e,l,l,o';
-      var strArray = str1.split(',');
-      console.log(strArray);
-      for (var i = 0; i < strArray.length; i++) {
-        console.log(strArray[i]);
-      }
-      console.log(str.toUpperCase());
 
-      // parseInt, parseFloat
-      var num = 10;
-      var str2 = '10';
-      console.log(Number.parseInt(str2));
-      console.log(Number.parseInt(str2) == 10);
-      console.log(Number.parseFloat(str2)); // 10
-      console.log(Number.parseFloat(str2) == 10.0); // true
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript本格入門</title>
+</head>
 
-      // シンボル… enumの使い方に近い？
-      const MONDAY = Symbol();
-      const TUESDAY = Symbol();
-      const WEDNESDAY = Symbol();
-      const THURSDAY = Symbol();
-      const FRIDAY = Symbol();
-      const SATURDAY = Symbol();
-      const SUNDAY = Symbol();
+<body>
+  <script type="text/javascript">
+    var str = 'Hello';
+    console.log(str.indexOf('e')); // 1
+    console.log(str.startsWith('o')); // false
+    console.log(str.includes('l')); // true
+    console.log(str.charAt(3)); // l
+    console.log(str.substring(1, 5)); // ello
+    var str1 = 'H,e,l,l,o';
+    var strArray = str1.split(',');
+    console.log(strArray);
+    for (var i = 0; i < strArray.length; i++) {
+      console.log(strArray[i]);
+    }
+    console.log(str.toUpperCase());
 
-      switch (SUNDAY) {
-        case MONDAY:
-          console.log('月曜日');
-          break;
-        case FRIDAY:
-          console.log('金曜日');
-          break;
-        case SUNDAY:
-          console.log('日曜日');
-          break;
-        default:
-          console.log('default');
-      }
+    // parseInt, parseFloat
+    var num = 10;
+    var str2 = '10';
+    console.log(Number.parseInt(str2));
+    console.log(Number.parseInt(str2) == 10);
+    console.log(Number.parseFloat(str2)); // 10
+    console.log(Number.parseFloat(str2) == 10.0); // true
 
-      // with命令(遅いので非推奨)
-      // 同じオブジェクトを繰り返し呼び出すう場合の略記法
-      with(console) {
-        log(Math.abs(-100));
-        log(Math.max(10, 20, 30));
-        log(parseInt(Math.random() * 10));
-      }
-    </script>
-  </body>
+    // シンボル… enumの使い方に近い？
+    const MONDAY = Symbol();
+    const TUESDAY = Symbol();
+    const WEDNESDAY = Symbol();
+    const THURSDAY = Symbol();
+    const FRIDAY = Symbol();
+    const SATURDAY = Symbol();
+    const SUNDAY = Symbol();
+
+    switch (SUNDAY) {
+      case MONDAY:
+        console.log('月曜日');
+        break;
+      case FRIDAY:
+        console.log('金曜日');
+        break;
+      case SUNDAY:
+        console.log('日曜日');
+        break;
+      default:
+        console.log('default');
+    }
+
+    // with命令(遅いので非推奨)
+    // 同じオブジェクトを繰り返し呼び出すう場合の略記法
+    with(console) {
+      log(Math.abs(-100));
+      log(Math.max(10, 20, 30));
+      log(parseInt(Math.random() * 10));
+    }
+
+    console.log('-------------------');
+
+    // arrayオブジェクトの基本的なメソッド群
+    var ary1 = ['sato', 'takae', 'osada', 'hio', 'saitoh', 'sato'];
+    var ary2 = ['yabuki', 'aoki', 'moriyama', 'yamada'];
+
+    console.log(ary1.length); // 6
+    console.log(Array.isArray(ary1)); // true
+    console.log(ary1.toString()); // []を覗いてカンマ区切りで文字列化
+    console.log(ary1.indexOf('sato')); // 0
+    console.log(ary1.lastIndexOf('sato')); // 5
+    console.log(ary1.concat(ary2)); // 配列を合体
+
+    console.log('-------------------');
+
+    console.log(ary1.join('/')); // スラッシュ(/)で連結
+    console.log(ary1.slice(1, 3)); // 1~3の要素を抽出
+    var ary3 = Array.of(20, 40, 50); // 引数の要素で配列を作成
+    console.log(ary3);
+    var ary4 = ary1.reverse(); // 配列の要素を反転
+    console.log(ary4);
+    var ary5 = ary1.sort(); // ソート
+    console.log(ary5);
+
+    console.log('-------------------');
+
+    // スタック
+    var data = [];
+    data.push(10);
+    data.push(20);
+    data.push(30);
+    console.log(data.pop()); // 30
+    console.log(data.pop()); // 20
+    console.log(data.pop()); // 10
+    console.log(data.pop()); // undefined
+
+    // キュー
+    data.push(40);
+    data.push(50);
+    data.push(60);
+    console.log(data.shift()); // 40
+    console.log(data.shift()); // 50
+    console.log(data.shift()); // 60
+
+    console.log('-------------------');
+
+    // forEachメソッド
+    // 配列内の要素を指定した関数で順に処理するためのメソッド(戻り値なし)
+    // 配列の要素を順番に取り出して引数の関数に渡す
+    var data = [2, 3, 4, 5];
+    data.forEach(function(value, index, array) {
+      console.log(value * value);
+    }); // 4, 9, 16, 25
+    var names = ['bob', 'sam', 'dave', 'chris'];
+    names.forEach(function(value, index, array) {
+      console.log('Hello, ' + value + '.');
+    });
+    console.log('-------------------');
+
+    // mapメソッド
+    // forEachの戻り値ありバージョン
+    var data = [2, 3, 4, 5];
+    var result = data.map(function(value, index, array) {
+      return value * value;
+    });
+    console.log(result); // 4, 9, 16, 25
+    var numbers = [-10, 4, -30, -55.5];
+    var result = numbers.map(function(value, index, array) {
+      return Math.abs(value);
+    });
+    console.log(result); // 10, 4,  40, 55.5
+    console.log('-------------------');
+
+    // someメソッド
+    // 条件に合致した要素が存在するか確認する
+    var data = [34, 456, 234, 55];
+    var result = data.some(function(value, index, array) {
+      return value % 5 === 0;
+    });
+    console.log(result); // true
+    // everyメソッド
+    // 配列の要素がすべて一致するか
+    var result = data.every(function(value, index, array) {
+      return value % 2 === 0;
+    });
+    console.log(result); // false
+    console.log('-------------------');
+
+    // filterメソッド
+    // 条件に合致する要素だけ抽出
+    var data = [3423, 56456, 23421, 433434321];
+    var result = data.filter(function(value, index, array) {
+      return value >= 5000;
+    });
+    console.log(result);
+    console.log('-------------------');
+
+    // Mapオブジェクトの基本的なメソッド群
+    // 連想配列のとの違い
+    // 1. 文字列以外の任意の型でキーを設定できる
+    // 2. マップのサイズを取得できる
+    // 3. クリーンなマップを生成できる(?)
+    let m = new Map();
+    m.set('0001', 'シャーペン');
+    m.set('0002', '消しゴム');
+    m.set('0003', 'ノート');
+    console.log(m.size); // 3
+    console.log(m.get('0002')); // 消しゴム
+    console.log(m.has('0004')); // false
+    m.forEach(function(value, key, map) {
+      console.log(value);
+    });
+    console.log('-------------------');
+    // キーを順に取得
+    for (let key of m.keys()) {
+      console.log(key);
+    }
+    console.log('-------------------');
+    // 値を順に取得
+    for (let value of m.values()) {
+      console.log(value);
+    }
+    console.log('-------------------');
+    // エントリを順に取得
+    for (let [key, value] of m.entries()) {
+      console.log(value);
+      console.log(key);
+    }
+    console.log('-------------------');
+    // Mapオブジェクトにおけるキーの比較にには同値演算子が使われる
+    
+  </script>
+</body>
+
 </html>
