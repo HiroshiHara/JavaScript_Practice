@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript本格入門</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    'use strict';
+
+    // Dateオブジェクトの基本的なメソッド群
+    // 月は0~11で指定
+    let date1 = new Date(); // 現在日時を取得
+    let date2 = new Date('2019/03/19 21:24:10'); // フォーマットを指定して取得
+
+    console.log(date2); // Tue Feb 19 2019 21:24:10 GMT+0900 (日本標準時)
+    console.log(date2.getFullYear()); // 2019
+    console.log(date2.getMonth()); // 2
+    console.log(date2.getDate()); // 19
+    console.log(date2.getHours()); // 21
+    console.log('------------------');
+
+    date2.setFullYear('2020');
+    date2.setMonth('05');
+    date2.setDate('30');
+    console.log(date2); // Tue Jun 30 2020 21:24:10 GMT+0900 (日本標準時)
+    console.log(date2.toLocaleString()); //2020/6/30 21:24:10
+    console.log(date2.toUTCString()); // Tue, 30 Jun 2020 12:24:10 GMT
+    console.log(date2.toJSON()); // 2020-06-30T12:24:10.000Z
+
+    // 日付時刻の加減算は一度getで取り出して計算の後setする
+    let date3 = Date.now(); // ミリ秒で取得してしまう。
+    console.log(date3);
+    let date4 = new Date();
+    date4.setMonth(date4.getMonth() + 1);
+    date4.setDate(0); // 0日目=先月の最終日
+    console.log(date4.toLocaleString()); // 今月の最終日が取得できる
+    console.log('------------------');
+
+    // 日付・時刻の差分
+    let date5 = new Date();
+    let date6 = new Date(1991, 10, 5);
+    var diff = (date5.getTime() - date6.getTime()) / (1000 * 60 * 60 * 24);
+    console.log('生まれてから' + diff.toFixed(0) + '日経過しました');
+    console.log('------------------');
+
+    // 正規表現
+    // RegExpコンストラクタのオプション
+    // g = 文字列全体をチェック(無指定の場合、一度マッチした時点で終了)
+    // i = 大文字小文字を区別するか
+    // m = 複数行に対応するか
+    // u = Unicodeに対応させるか
+    var str = 'ABCDE';
+    let reg1 = new RegExp('ABC'); // ABCと完全一致
+    var result = str.match(reg1);
+    for (var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+    console.log('------------------');
+    let reg2 = new RegExp('[ABC]', 'g'); // A, B, Cのいずれか一文字
+    var result = str.match(reg2);
+    for (var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+    console.log('------------------');
+    let reg3 = new RegExp('[^ABC]', 'g'); // A, B, C以外の一文字
+    var result = str.match(reg3);
+    for (var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+    console.log('------------------');
+    let reg4 = new RegExp('[A-Z]', 'g'); // A~Zの間の一文字
+    var result = str.match(reg4);
+    for (var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+    console.log('------------------');
+    var str = 'bob,sam,charlie,chris';
+    let reg5 = new RegExp('dave|chris|jojo'); // |で区切られた値のいずれか
+    var result = str.match(reg5);
+    for (var i = 0; i < result.length; i++) {
+      console.log(result[i]);
+    }
+    console.log('------------------');
+    
+  </script>
+</body>
+
+</html>

@@ -191,6 +191,27 @@
     }
     console.log('-------------------');
     // Mapオブジェクトにおけるキーの比較にには同値演算子が使われる
+    console.log(m.get(0001)); // undefined
+    console.log(m.get('0001')); // シャーペン
+    console.log('-------------------');
+    // Setオブジェクトの基本的なメソッド群
+    // 重複を許さない要素の集合
+    // インデックス番号やキーで要素にアクセスする手段はない
+    let s = new Set();
+    s.add(10);
+    s.add(20);
+    s.add(30);
+    s.add(40);
+    s.add(40); // 同じ値をセットしても無視される
+    console.log(s.size); // 4
+    console.log(s.has(10)); // true
+    for (let val of s.values()) {
+      console.log(val);
+    }
+    s.delete(10);
+    console.log(s.size); // 3
+    s.clear();
+    console.log(s.size); // 0
     
   </script>
 </body>
