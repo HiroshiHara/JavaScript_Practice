@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    'use strict';
+    // Objectクラスの基本的なメソッド群
+    // toString... 文字列を返す
+    // valueOf... 文字列以外の基本型が返されることを期待される
+    // ほとんどケースでは個々のオブジェクトで個別に定義されるべき
+    var obj = new Object();
+    console.log(obj.toString());
+    console.log(obj.valueOf());
+    console.log('--------------------');
+
+    // assign... オブジェクトをマージする
+    // 同名のプロパティは上書きされ、再帰的なマージには非対応
+    let book = {
+      title: 'JavaScript本格入門',
+      price: '2500',
+      publish: '技術評論社',
+      comment: {
+        memo: '良書',
+        review: 5
+      }
+    };
+    let publisher = {
+      name: '技術評論社',
+      established: '1990',
+      member: 2000
+    };
+    // 第一引数にマージ先のオブジェクトを指定する
+    // もとのオブジェクトを上書きされたくない場合、
+    // 下記のように空のオブジェクトをしてする
+    let merged = Object.assign({}, book, publisher);
+    console.log(merged);
+    console.log('--------------------');
+
+    // オブジェクトを生成する手段
+    // オブジェクトリテラル
+    var obj1 = {
+      x: 1,
+      y: 2,
+      z: 3
+    };
+    console.log(obj1.valueOf());
+    // new演算子とコンストラクタ
+    var obj2 = new Object();
+    obj2.x = 'value1';
+    obj2.y = 'value2';
+    obj2.z = 'value3';
+    console.log(obj2.valueOf());
+    // createメソッド
+    // 第一引数でObject.createを渡すことで、
+    // Objectクラスを引き継いだオブジェクトであることを宣言している
+    // また、第一引数にnullを渡すことで完全に空のオブジェクトを生成できる
+    var obj3 = Object.create(Object.prototype, {
+      // プロパティ名: {value:値, writable:書き換え可能か, configurable:writable以外の変更も可能か, enumerable:列挙可能か}
+      x: {
+        value: 'test1',
+        writable: true,
+        configurable: true,
+        enumerable: true
+      },
+      y: {
+        value: 'test2',
+        writable: true,
+        configurable: true,
+        enumerable: true
+      },
+      z: {
+        value: 'test3',
+        writable: true,
+        configurable: true,
+        enumerable: true
+      },
+    });
+    console.log(obj3.valueOf());
+    var nullObj = Object.create(null);
+    console.log(nullObj); // {}
+    console.log('--------------------');
+
+    // immutableなオブジェクト定義
+    // プロパティの追加・削除・値の変更を制限できる
+    // 'use strict'を宣言しないと、immutable制約を加えても例外が発生しなくなる
+    // また、IE9ではstrictモードにしても例外が出ない。クソクソアンドクソ
+
+    let immutableObject1 = new Object();
+    immutableObject1.x = 'value1';
+    immutableObject1.y = 'value2';
+    immutableObject1.z = 'value3';
+    // preventExtensions... 追加:NG, 削除:OK, 変更:OK
+    Object.preventExtensions(immutableObject1);
+    try {
+      immutableObject1.o = 'other';
+    } catch (e) {
+      console.log(e.message); // Cannot add property o, object is not extensible
+    }
+    console.log('--------------------');
+    let immutableObject2 = new Object();
+    immutableObject2.x = 'value1';
+    immutableObject2.y = 'value2';
+    immutableObject2.z = 'value3';
+    // seal... 追加:NG, 削除:NG, 変更:OK
+    Object.seal(immutableObject2);
+    try {
+      delete immutableObject2.x;
+    } catch (e) {
+      console.log(e.message); // Cannot delete property 'x' of #<Object>
+    }
+    console.log('--------------------');
+    let immutableObject3 = new Object();
+    immutableObject3.x = 'value1';
+    immutableObject3.y = 'value2';
+    immutableObject3.z = 'value3';
+    // freeze... 全部NG
+    Object.freeze(immutableObject3);
+    try {
+      immutableObject3.x = 'other';
+    } catch (e) {
+      console.log(e.message); // Cannot assign to read only property 'x' of object '#<Object>'
+    }
+  </script>
+</body>
+
+</html>
