@@ -125,6 +125,25 @@
     } catch (e) {
       console.log(e.message); // Cannot assign to read only property 'x' of object '#<Object>'
     }
+    console.log('--------------------');
+
+    // JSONの利用
+    // JSONとオブジェクトリテラルの違い
+    // 1... プロパティ名はダブルクォートで囲む
+    // 2... 要素末尾は感まで終わってはいけない
+    // 3... ゼロ始まりの数値は禁止
+
+    // JSONからオブジェクトへ
+    var json1 = '{"hoge": 1, "fuga": 2}';
+    var obj1 = JSON.parse(json1);
+    for (obj in obj1) {
+      console.log(obj); // hoge, huga
+    }
+
+    // 配列/オブジェクトリテラルからJSONへ
+    var obj2 = {hoge:3, huga:4};
+    var json2 = JSON.stringify(obj2);
+    console.log(json2); // json文字列
   </script>
 </body>
 
