@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript本格入門</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    // function関数で定義する
+    function getTriangleArea(base, height) {
+      return base * height / 2;
+    }
+    console.log('三角形の面積:' + getTriangleArea(2, 3)); // 3
+    console.log('-----------------');
+
+    // Functionコンストラクタ経由で定義する
+    var getTriagleArea = new Function('base, height', 'return base * height / 2;');
+    console.log('三角形の面積:' + getTriagleArea(3, 5)); // 7.5
+    console.log('-----------------');
+
+    // 特にメリットはないが、Functionコンストラクタでは引数軍や関数を文字列として定義できるので、
+    // 以下のような記述が可能である
+    var param = 'horizonal, vartical';
+    var formula = 'return horizonal * vartical;';
+    var area = new Function(param, formula);
+    console.log('四角形の面積:' + area(10, 40)); // 400
+    console.log('-----------------');
+
+    // 関数リテラル表現で定義する(匿名関数または無名関数)
+    // JavaScriptにおいて関数はデータ型の一種なので、関数自身を変数に代入したり、
+    // 他の関数の引数に渡したり戻り値として関数を返すことができる
+    var getFullName = function(firstName, lastName) {
+      return firstName + lastName;
+    };
+    console.log('私の名前は' + getFullName('Hiroshi', 'Hara') + 'です');
+    console.log('-----------------');
+
+    // アロー関数で定義する
+    var getTAXPrice = (price, TAX) => {
+      return price * TAX;
+    };
+    console.log(getTAXPrice(100, 1.08));
+
+    // アロー関数の略記法
+    // 関数本体が一文だけである場合{}とreturnが省略可
+    // 引数がない場合でも()は省略不可
+    var printBorderLog = () => console.log('-----------------');
+    printBorderLog();
+
+    // ()が省略可能なのは引数が1つのみのとき
+    var getCircleArea = radius => Math.round(radius * radius * Math.PI);
+    console.log(getCircleArea(3));
+    printBorderLog();
+
+    // アロー関数で戻り値をオブジェクトリテラルにする場合、
+    // リテラル全体を()で括らないと{}が関数ブロックと見なされるので注意
+    let getObjectLiteral = () => ({hoge : 'ほげ'});
+    for (value in getObjectLiteral()) {
+      console.log(value);
+    }
+    printBorderLog();
+
+    
+  </script>
+</body>
+
+</html>
