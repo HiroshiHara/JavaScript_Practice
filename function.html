@@ -101,6 +101,7 @@
     // ローカル変数は関数全体に有効である
     // 関数内で未定義のローカル変数を呼び出すと、
     // 例えグローバル変数に同名の変数があってもundefinedとなる
+    // →ローカル変数は関数の先頭で定義するのが好ましい
     var scope = 'GlobalValue';
     function getValue() {
       console.log(scope); // undefined
@@ -111,7 +112,77 @@
     console.log(scope);
     printBorderLog();
 
-    
+    // 仮引数のスコープ
+    // 基本型... 仮引数が基本型の場合、関数内部で使用される仮引数はローカル変数とみなされるので、
+    // グローバル変数に影響を及ぼさない
+    var value = 10;
+    function decrementValue(value) {
+      value--;
+      return value;
+    }
+    console.log(decrementValue(value)); // 9
+    console.log(value); // 10
+    printBorderLog();
+
+    // 参照型... 仮引数が参照型の場合、関数内部で仮引数を操作すると
+    // グローバル変数にも影響が及ぶ
+    var value = [10, 20, 30, 40];
+    function deleteElement(value) {
+      value.pop();
+      return value;
+    }
+    console.log(deleteElement(value)); // 10, 20, 30
+    console.log(value); // 10, 20, 30
+    printBorderLog();
+
+    // JavaScriptにブロックスコープは存在しない
+    if (true) {
+      var i = 10;
+      console.log(i); // 10
+    }
+    console.log(i); // エラーにならず、10
+    printBorderLog();
+
+    // 擬似的にブロックスコープを実現する
+    // 即時関数として　ブロックを宣言し、callで即実行する
+    (function() {
+      var j = 5;
+      console.log(i);
+    }).call(this); // 5
+    // console.log(j); エラー
+    printBorderLog();
+
+  // let, constで宣言された変数であればブロックスコープに対応できる
+  function getLetVal() {
+    let letVal = 100;
+    return letVal;
+  }
+  console.log(getLetVal()); // 100
+  // console.log(letVal); エラー
+  function getConstVal() {
+    const constVal = 200;
+    return constVal;
+  }
+  console.log(getConstVal()); // 200
+  // console.log(constVal); エラー
+  printBorderLog();
+
+  // 関数リテラルとFunctionコンストラクタを関数の中で用いた場合、
+  // それぞれでスコープの解釈がことなる
+  var scope = 'GlobalScope';
+  function checkScope() {
+    var scope = 'LocalScope';
+    var functionLiteral = function() {
+      return scope;
+    }
+    console.log(functionLiteral()); // LocalScope
+    var functionConstructor = new Function('return scope');
+    console.log(functionConstructor()); // GrobalScope
+  }
+  // Functionコンストラクタ配下の変数は、宣言箇所に関わらず常にグローバル変数とみなされる
+  // Functionコンストラクタは使用しないほうが無難
+  checkScope();
+
   </script>
 </body>
 
