@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript本格入門</title>
+</head>
+
+<body>
+  <script type="text/javascript">
+    function printBorderLog() {
+      console.log('------------------');
+    }
+
+    // JavaScriptは引数の数をチェックしない
+    function showMessage(value) {
+      console.log(value);
+    }
+    showMessage(); // undefined
+    showMessage('Bob'); // Bob
+    showMessage('Bob', 'Sam'); // Bob
+    printBorderLog();
+
+    // argumentオブジェクトの利用
+    // 余分な引数は破棄されるわけではなく、関数内で使用できるargumentオブジェクトに保持される
+    // そのため、関数内で引数の数をチェックできる機構を持たせられる
+    function addition(num1, num2) {
+      if (arguments.length !== 2) {
+        throw new ReferenceError('引数が異なっています');
+      }
+      return num1 + num2;
+    }
+    try {
+      var result = addition(10, 20, 30);
+    } catch (e) {
+      console.log(e.name + ':' + e.message);
+    }
+    printBorderLog();
+
+    // 引数のデフォルト値を設定する
+    // 第二引数以降をoptionalとして定義して、引数を渡されなくても正常に動作するようにする
+    function showUserData(userId, o_userName) {
+      if (userId === undefined) {
+        throw new ReferenceError('ユーザIDを指定してください');
+      }
+      if (o_userName === undefined) {
+        o_userName = 'blank';
+      }
+      console.log('userID:' + userId);
+      console.log('userNAME:' + o_userName);
+    }
+    showUserData('0001');
+    printBorderLog();
+
+    // 可変長引数を利用する
+    function sum() {
+      var result = 0;
+      // 引数を全て合算して返す
+      for (var i = 0; i < arguments.length; i++) {
+        var tmp = arguments[i];
+        if (typeof tmp !== 'number') {
+          throw new Error('引数に数値以外が渡されました');
+        }
+        result += tmp;
+      }
+      return result;
+    }
+    console.log(sum(1, 2, 3, 4, 5, 6));
+    printBorderLog();
+
+    // 可変長引数と明示的に宣言された引数を混在させる
+    // 結論から言うと、全て可変長引数で片付けるより明示的に宣言するほうが
+    // 可読性が高いので、最低限に留めるべき
+    function printf(format) {
+      // 引数の2番目移行を順番に処理
+      for (var i = 0, len = arguments.length; i < len; i++) {
+        // 正規表現パターンを生成
+        var pattern = new RegExp('\\{' + (i - 1) + '\\}', 'g');
+        // 第一引数の文字列のうち、合致する分を第二引数以降で置き換え
+        format = format.replace(pattern, arguments[i]);
+      }
+      console.log(format);
+    }
+    printf('Hello, {0}!, Let\'s learn {1}!', 'BOB', 'GoLang');
+    printBorderLog();
+
+    // 名前付き引数を利用する
+    // 冗長になるが場合によっては可読性が高まる
+    // また、引数の順序も無視できる
+    function displayUserData(args) {
+      // 仮引数args=オブジェクトリテラル
+      // プロパティ名でアクセスできる
+      console.log('ユーザ名:' + args.userName);
+      console.log('ユーザID:' + args.userId);
+      console.log('年齢:' + args.userAge);
+      console.log('住所:' + args.userAddress);
+    }
+    displayUserData({userName:'BOB', userId:'0001', userAge:24, userAddress:'Japan'});
+
+    printBorderLog();
+    printBorderLog();
+    console.log('以降、ES2015で採用された文法');
+    printBorderLog();
+    printBorderLog();
+
+    
+
+
+  </script>
+</body>
+
+</html>
