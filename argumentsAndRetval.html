@@ -103,9 +103,84 @@
     printBorderLog();
     printBorderLog();
 
-    
+    // 引数のデフォルト値
+    // 仮引数=デフォルト値の形で宣言できる
+    function printGreet(name = 'NAME') {
+      console.log('Hello, ' + name);
+    }
+    printGreet();
 
+    // デフォルト値には他の引数や関数も入れられる
+    // ただし自身より前に宣言されたリテラル/関数だけ
+    function multiply(a, b = a) {
+      return a * b;
+    }
+    console.log(multiply(5)); // 25
 
+    // デフォルト値が適用される場合、されない場合
+    // デフォルト値が適用されるのは、引数が明示的に渡されなかったときだけ
+    // したがった、nullや0、空文字など意図的に空を渡されたようなときはデフォルト値は採用されない
+    console.log(multiply(5, null)); // 0
+    // ただしundefinedだけは例外
+    console.log(multiply(5, undefined)); // 25
+
+    // 引数に例外を投げるだけの関数をデフォルト値として設定することで、
+    // 引数を渡すことを強制できる
+    function requireException() {
+      throw new Error('引数を設定してください');
+    }
+
+    function printArray(array = requireException()) {
+      for (var i = 0; i < array.length; i++) {
+        console.log(array[i]);
+      }
+    }
+
+    try {
+      printArray();
+    } catch (e) {
+      console.log(e.message);
+    }
+    printBorderLog();
+
+    // 可変長引数
+    // 仮引数の前にピリオド三個で可変長引数となる
+    function sum(...nums) {
+      var result = 0;
+      for (var num of nums) {
+        if (typeof num !== 'number') {
+          throw new Error('指定された値が数値ではありません');
+        }
+        result += num;
+      }
+      return result;
+    }
+
+    try {
+      console.log(sum(1, 2, 4, 5, 6, 7));
+    } catch (e) {
+      console.log(e.message);
+    }
+
+    // 以前のargumentsオブジェクトはあくまでArrayライクなオブジェクトなので、pushやshiftは使えなかった
+    // 今回の可変長引数は正真正銘のArrayオブジェクトなので、それらの制限はない
+    function sumAll(...nums) {
+      var result = 0;
+      for (var num of nums) {
+        if (typeof num !== 'number') {
+          throw new Error('指定された値が数値ではありません');
+        }
+        result += num;
+      }
+      return result;
+    }
+
+    try {
+      console.log(sumAll(234, 23423, 45345, 2342, 4545));
+    } catch (e) {
+      console.log(e.message);
+    }
+    printBorderLog();
   </script>
 </body>
 
