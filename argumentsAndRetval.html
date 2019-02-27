@@ -201,7 +201,18 @@
     show(member);
     printBorderLog();
 
-    
+    // 複数の戻り値を個別の変数に代入する
+    function getMaxAndMin(...nums) {
+      return [Math.max(...nums), Math.min(...nums)];
+    }
+    var result = getMaxAndMin(234, 23423, 2342, 2342, 2342342,);
+    console.log(result); // 2342342, 234
+    var [max, min] = getMaxAndMin(2342, 3453453, 2342132 ,234234, 2342);
+    console.log(max); // 3453453
+    console.log(min); // 2342
+    printBorderLog();
+
+
   </script>
 </body>
 
