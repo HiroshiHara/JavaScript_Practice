@@ -95,7 +95,12 @@
       console.log('年齢:' + args.userAge);
       console.log('住所:' + args.userAddress);
     }
-    displayUserData({userName:'BOB', userId:'0001', userAge:24, userAddress:'Japan'});
+    displayUserData({
+      userName: 'BOB',
+      userId: '0001',
+      userAge: 24,
+      userAddress: 'Japan'
+    });
 
     printBorderLog();
     printBorderLog();
@@ -190,7 +195,9 @@
     printBorderLog();
 
     // 分割代入を利用して、オブジェクトから特定のプロパティだけを取り出す
-    function show({name}) {
+    function show({
+      name
+    }) {
       console.log(name);
     }
     let member = {
@@ -205,9 +212,9 @@
     function getMaxAndMin(...nums) {
       return [Math.max(...nums), Math.min(...nums)];
     }
-    var result = getMaxAndMin(234, 23423, 2342, 2342, 2342342,);
+    var result = getMaxAndMin(234, 23423, 2342, 2342, 2342342, );
     console.log(result); // 2342342, 234
-    var [max, min] = getMaxAndMin(2342, 3453453, 2342132 ,234234, 2342);
+    var [max, min] = getMaxAndMin(2342, 3453453, 2342132, 234234, 2342);
     console.log(max); // 3453453
     console.log(min); // 2342
     printBorderLog();
@@ -236,7 +243,12 @@
     function showElement(key, value) {
       console.log(key + ':' + value);
     }
-    var objectLiteral = {name:'BOB', age:'32', weight:53.5, height:170.0};
+    var objectLiteral = {
+      name: 'BOB',
+      age: '32',
+      weight: 53.5,
+      height: 170.0
+    };
     arrayWalk(objectLiteral, showElement);
     printBorderLog();
 
@@ -245,18 +257,33 @@
     function sumElement(key, value) {
       result += value;
     }
-    var objectLiteral = {english:80, math:67, science:90, music:90};
+    var objectLiteral = {
+      english: 80,
+      math: 67,
+      science: 90,
+      music: 90
+    };
     arrayWalk(objectLiteral, sumElement);
     console.log(result); // 327
     printBorderLog();
 
     // 上記の高階関数は全て匿名関数(関数リテラル)で簡略化可能
-    var objectLiteral = {name:'John', age:'34', weight:45.2, height:180.6};
+    var objectLiteral = {
+      name: 'John',
+      age: '34',
+      weight: 45.2,
+      height: 180.6
+    };
     arrayWalk(objectLiteral, function(key, value) {
       console.log(key + ':' + value);
     });
 
-    var objectLiteral = {english:20, math:90, science:67, music:50};
+    var objectLiteral = {
+      english: 20,
+      math: 90,
+      science: 67,
+      music: 50
+    };
     var result = 0;
     arrayWalk(objectLiteral, function(key, value) {
       result += value;
@@ -296,7 +323,67 @@
 
     // 呼び出し方... 関数名`テンプレート部分`
     var unEscapedString = '<"Mario"&\'Luigi\'>';
-    console.log(e`こんにちは、${unEscapedString}さん`);
+    console.log(e `こんにちは、${unEscapedString}さん`);
+    printBorderLog();
+
+    //:TODO よくわからん
+    // スコープチェーン
+    // チェーンの先頭は最も内側の関数のCallオブジェクト
+    // チェーンの末端はグローバルオブジェクト
+    // 変数が呼ばれたとき、呼び出し元自身の階層から外側に向かって検索していく(当然グローバル変数にすら未定義ならアクセス不可)
+    var x = 'Global';
+    var x1 = 'グローバル';
+    function outerFunc() {
+      var x = 'Local Outer';
+      var x2 = 'ローカルアウター';
+      function innerFunc() {
+        var x = 'Local Inner';
+        var x3 = 'ローカルインナー';
+        console.log(x); // Local Inner
+        console.log(x1); // グローバル
+      }
+      innerFunc();
+      console.log(x); // Local Outer
+      // console.log(x3); エラー
+    }
+    outerFunc();
+    console.log(x); // Global
+    // console.log(x2); エラー
+    printBorderLog();
+
+    // :TODO よくわからん
+    // クロージャ
+    // JavaScriptでは、内部関数がローカル変数を参照している場合、
+    // メソッドが終了してもローカル変数は保持され続ける
+    function closure(init) {
+      var counter = init;
+      return function() {
+        return ++counter;
+      }
+    }
+    var myClosure = closure(1);
+    console.log(myClosure()); // 2
+    console.log(myClosure()); // 3
+    console.log(myClosure()); // 4
+    console.log(myClosure() + 1); // 6
+    console.log(myClosure()); // 6
+
+    function isClicked() {
+      var flag = false;
+      return function() {
+        if (flag) {
+          window.alert('ダブルクリックしないで下さい');
+          return flag;
+        }
+        flag = true;
+        window.alert('クリックされました');
+        return flag;
+      }
+    }
+    var resultClicked = isClicked();
+    console.log(resultClicked()); // true
+    console.log(resultClicked()); // true
+
   </script>
 </body>
 
