@@ -255,14 +255,48 @@
     arrayWalk(objectLiteral, function(key, value) {
       console.log(key + ':' + value);
     });
-    
+
     var objectLiteral = {english:20, math:90, science:67, music:50};
     var result = 0;
     arrayWalk(objectLiteral, function(key, value) {
       result += value;
     });
     console.log(result); // 227
+    printBorderLog();
 
+    // タグ付きテンプレート文字列
+    // 与えられた文字列をエスケープ処理するメソッド
+    function escapeHTML(str) {
+      // 空文字、0, NaN, null, undefinedは暗黙的にfalse
+      if (!str) {
+        return '';
+      }
+      str = str.replace(/&/g, '&amp;');
+      str = str.replace(/</g, '&lt;');
+      str = str.replace(/>/g, '&gt;');
+      str = str.replace(/"/g, '&quot;');
+      str = str.replace(/'/g, '&#39');
+      return str;
+    }
+    console.log(escapeHTML('BOB&BILLY'));
+    console.log(escapeHTML('<HTML>'));
+    console.log(escapeHTML('\"NAME\"'));
+    console.log(escapeHTML('\'TEST\''));
+
+    // 第一引数が配列、第二引数が可変長引数となる
+    // テンプレート部分が第一引数に、埋め込み変数部分が第二引数に入る
+    // テンプレート部分と埋め込み変数(エスケープ処理済み)を交互に結合する
+    function e(templates, ...values) {
+      var result = '';
+      for (var i = 0; i < templates.length; i++) {
+        result += templates[i] + escapeHTML(values[i]);
+      }
+      return result;
+    }
+
+    // 呼び出し方... 関数名`テンプレート部分`
+    var unEscapedString = '<"Mario"&\'Luigi\'>';
+    console.log(e`こんにちは、${unEscapedString}さん`);
   </script>
 </body>
 
