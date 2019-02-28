@@ -213,6 +213,56 @@
     printBorderLog();
 
 
+    // 再帰関数
+    function factorial(num) {
+      if (num != 0) {
+        return num * factorial(num - 1);
+      }
+      return 1;
+    }
+    console.log(factorial(5)); // 120
+    printBorderLog();
+
+    // 高階関数
+    // 引数、戻り値が関数
+    // 例えば関数の大枠(以下では配列に対する反復子)を用意して、実装を引数の関数に任せる
+    function arrayWalk(objectLiteral, f) {
+      for (var key in objectLiteral) {
+        f(key, objectLiteral[key]);
+      }
+    }
+
+    // 連想配列のキーと値を表示する
+    function showElement(key, value) {
+      console.log(key + ':' + value);
+    }
+    var objectLiteral = {name:'BOB', age:'32', weight:53.5, height:170.0};
+    arrayWalk(objectLiteral, showElement);
+    printBorderLog();
+
+    var result = 0;
+    // 連想配列の値を合算する
+    function sumElement(key, value) {
+      result += value;
+    }
+    var objectLiteral = {english:80, math:67, science:90, music:90};
+    arrayWalk(objectLiteral, sumElement);
+    console.log(result); // 327
+    printBorderLog();
+
+    // 上記の高階関数は全て匿名関数(関数リテラル)で簡略化可能
+    var objectLiteral = {name:'John', age:'34', weight:45.2, height:180.6};
+    arrayWalk(objectLiteral, function(key, value) {
+      console.log(key + ':' + value);
+    });
+    
+    var objectLiteral = {english:20, math:90, science:67, music:50};
+    var result = 0;
+    arrayWalk(objectLiteral, function(key, value) {
+      result += value;
+    });
+    console.log(result); // 227
+
   </script>
 </body>
 
