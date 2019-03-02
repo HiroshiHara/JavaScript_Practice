@@ -82,3 +82,12 @@ console.log(supplyer2.howToContact());
 supplyer1.changeContact('tel');
 console.log(supplyer1.howToContact());
 console.log(supplyer2.howToContact());
+
+// インスタンスへプロパティの削除を行っても、プロトタイプに定義されているメンバの場合
+// プロトタイプへの影響はない
+delete supplyer1.contact;
+delete supplyer2.contact;
+console.log(supplyer1.howToContact());
+console.log(supplyer2.howToContact());
+
+// プロトタイプに定義するメンバが多いときはオブジェクトリテラルを利用する
