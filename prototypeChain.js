@@ -71,6 +71,7 @@ Engineer.prototype = new Worker();
 var emp3 = new Engineer('E0003', 'Dave Weckle', 'System_mainte', 700, 'RedHat', 'Oracle Server', 'AWS');
 emp3.payRise();
 console.log(emp3); // WorkerクラスのpayRise()が適用される
+emp3.showAllSkill();
 printBorderLog();
 
 // プロパティチェーンはインスタンス生成の時点で固定されるので、
