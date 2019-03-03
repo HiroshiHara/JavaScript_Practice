@@ -66,16 +66,34 @@ Worker.prototype.payRise = function() {
   this.salary += 30;
 }
 
-// Engineerクラスの親クラスをWorkerクラスに変更
-Engineer.prototype = new Worker();
-var emp3 = new Engineer('E0003', 'Dave Weckle', 'System_mainte', 700, 'RedHat', 'Oracle Server', 'AWS');
-emp3.payRise();
-console.log(emp3); // WorkerクラスのpayRise()が適用される
-emp3.showAllSkill();
-printBorderLog();
+// // Engineerクラスの親クラスをWorkerクラスに変更
+// Engineer.prototype = new Worker();
+// var emp3 = new Engineer('E0003', 'Dave Weckle', 'System_mainte', 700, 'RedHat', 'Oracle Server', 'AWS');
+// emp3.payRise();
+// console.log(emp3); // WorkerクラスのpayRise()が適用される
+// // emp3.showAllSkill(); error
+// printBorderLog();
 
 // プロパティチェーンはインスタンス生成の時点で固定されるので、
 // 親クラスを変更しても既に生成したインスタンスについては影響を及ぼさない
 emp2.payRise();
 console.log(emp2); // EmployeeクラスのpayRise()が適用される
+emp2.showAllSkill();
 printBorderLog();
+
+// オブジェクトの型を判定する... constructorプロパティ
+// プロトタイプチェーンを使用している場合、constructorプロパティは継承元を示す
+console.log(emp1.constructor === Employee); // true
+console.log(emp2.constructor === Employee); // true
+console.log(emp2.constructor === Engineer); // false
+printBorderLog();
+
+// 元となるコンストラクターを判定する... instanceof演算子
+// 継承元のクラスもしくは子クラス自身のコンストラクターで生成されたものであるならture
+console.log(emp2 instanceof Employee); // true
+console.log(emp2 instanceof Engineer); // true
+printBorderLog();
+
+// 参照しているプロトタイプを確認する... isPrototypeOf()
+console.log(Employee.prototype.isPrototypeOf(emp2)); // true
+console.log(Engineer.prototype.isPrototypeOf(emp2)); // true
