@@ -126,3 +126,4 @@ supplyer1.supplyerName = 'A001商事';
 supplyer1.tel = '032536342';
 supplyer1.mailAddress = 'test@mail.jp';
 displaySupplyerData(supplyer1);
+displayBorderLog();
