@@ -11,30 +11,30 @@ class User {
     this.password = password;
   }
   // プロパティ(getter/setter)の定義
-  get userId() {
-    return this._userId;
+  get getUserId() {
+    return this.userId;
   }
-  set userId(userId) {
+  set setUserId(userId) {
     if (typeof userId === 'string' && userId) {
-      this._userId = userId;
+      this.userId = userId;
     }
   }
 
-  get userName() {
-    return this._userName;
+  get getUserName() {
+    return this.userName;
   }
-  set userName(userName) {
+  set setUserName(userName) {
     if (typeof userName === 'string' && userName) {
-      this._userName = userName;
+      this.userName = userName;
     }
   }
 
-  get password() {
-    return this._password;
+  get getPassword() {
+    return this.password;
   }
-  set password(password) {
+  set setPassword(password) {
     if (typeof password === 'string' && password) {
-      this._password = password;
+      this.password = password;
     }
   }
 
